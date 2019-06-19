@@ -123,6 +123,11 @@ class Alghoritm(object):
                 self.bot.sendMessage(self.chat_id, message)
                 
                 sleep(0.5)
+                # TODO: max file size is limited only at 50MB, better to run a bash command to store on https://transfer.sh/ 
+                # Example idea:
+                #       -> run with nohup the following
+                #       -> curl --upload-file ./hello.txt https://transfer.sh/hello.txt > ./backup/FILEname.txt
+                #       -> when the process is completet upload this small file or put in a list the file addres
                 self.bot.sendDocument(self.chat_id, document=open(f_path, 'rb'), timeout=10000)
                 
                 logging.info("New old file list: ")
@@ -241,6 +246,7 @@ class Alghoritm(object):
                         logging.info("UNAUTHORIZED")
                         update_id += 1
             except KeyboardInterrupt:
+                # TODO: maybe add a big could be needed to ensure all file are loaded
                 logging.info("ctrl C caught terminating")
                 break
         new_file_timer.stop()
